@@ -154,6 +154,7 @@ public class FragmentInstanceScheduler implements IFragmentInstanceScheduler, IS
       for (FragmentInstanceTask task : queryRelatedTasks) {
         task.lock();
         try {
+          task.setAbortCause(FragmentInstanceAbortedException.BY_QUERY_CASCADING_ABORTED);
           clearFragmentInstanceTask(task);
         } finally {
           task.unlock();
@@ -170,6 +171,7 @@ public class FragmentInstanceScheduler implements IFragmentInstanceScheduler, IS
     }
     task.lock();
     try {
+      task.setAbortCause(FragmentInstanceAbortedException.BY_FRAGMENT_ABORT_CALLED);
       clearFragmentInstanceTask(task);
     } finally {
       task.unlock();
@@ -189,6 +191,12 @@ public class FragmentInstanceScheduler implements IFragmentInstanceScheduler, IS
   private void clearFragmentInstanceTask(FragmentInstanceTask task) {
     if (task.getStatus() != FragmentInstanceTaskStatus.FINISHED) {
       task.setStatus(FragmentInstanceTaskStatus.ABORTED);
+    }
+    if (task.getAbortCause() != null) {
+      task.getFragmentInstance()
+          .failed(
+              new FragmentInstanceAbortedException(
+                  task.getFragmentInstance().getInfo(), task.getAbortCause()));
     }
     if (task.getStatus() == FragmentInstanceTaskStatus.ABORTED) {
       blockManager.forceDeregisterFragmentInstance(
@@ -345,6 +353,7 @@ public class FragmentInstanceScheduler implements IFragmentInstanceScheduler, IS
           }
           otherTask.lock();
           try {
+            otherTask.setAbortCause(FragmentInstanceAbortedException.BY_QUERY_CASCADING_ABORTED);
             clearFragmentInstanceTask(otherTask);
           } finally {
             otherTask.unlock();
