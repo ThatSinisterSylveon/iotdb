@@ -37,14 +37,14 @@ import java.io.IOException;
 public class AsyncDataNodeInternalServiceClient extends InternalService.AsyncClient {
 
   private final EndPoint endpoint;
-  private final ClientManager<AsyncDataNodeInternalServiceClient> clientManager;
+  private final ClientManager<EndPoint, AsyncDataNodeInternalServiceClient> clientManager;
 
   public AsyncDataNodeInternalServiceClient(
       TProtocolFactory protocolFactory,
       int connectionTimeout,
       EndPoint endpoint,
       TAsyncClientManager tClientManager,
-      ClientManager<AsyncDataNodeInternalServiceClient> clientManager)
+      ClientManager<EndPoint, AsyncDataNodeInternalServiceClient> clientManager)
       throws IOException {
     super(
         protocolFactory,
@@ -92,7 +92,7 @@ public class AsyncDataNodeInternalServiceClient extends InternalService.AsyncCli
       extends AsyncBaseClientFactory<EndPoint, AsyncDataNodeInternalServiceClient> {
 
     public Factory(
-        ClientManager<AsyncDataNodeInternalServiceClient> clientManager,
+        ClientManager<EndPoint, AsyncDataNodeInternalServiceClient> clientManager,
         ClientManagerProperty<AsyncDataNodeInternalServiceClient> clientManagerProperty) {
       super(clientManager, clientManagerProperty);
     }

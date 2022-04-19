@@ -19,31 +19,28 @@
 
 package org.apache.iotdb.commons.client;
 
-import org.apache.iotdb.common.rpc.thrift.EndPoint;
-
 import org.apache.commons.pool2.KeyedObjectPool;
 import org.apache.thrift.transport.TTransportException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.Optional;
 
-public class ClientManager<E> implements IClientManager<E> {
+public class ClientManager<K, V> implements IClientManager<K, V> {
 
   private static final Logger logger = LoggerFactory.getLogger(ClientManager.class);
 
-  private final KeyedObjectPool<EndPoint, E> pool;
+  private final KeyedObjectPool<K, V> pool;
 
-  public ClientManager(IClientPoolFactory<E> factory) {
+  public ClientManager(IClientPoolFactory<K, V> factory) {
     pool = factory.createClientPool(this);
   }
 
   @Override
-  public Optional<E> borrowClient(EndPoint node) throws IOException {
-    Optional<E> client = Optional.empty();
+  public V borrowClient(K node) throws IOException {
+    V client = null;
     try {
-      client = Optional.of(pool.borrowObject(node));
+      client = pool.borrowObject(node);
     } catch (TTransportException e) {
       // external needs to check transport related exception
       throw new IOException(e);
@@ -58,7 +55,7 @@ public class ClientManager<E> implements IClientManager<E> {
   }
 
   @Override
-  public void returnClient(EndPoint node, E client) {
+  public void returnClient(K node, V client) {
     if (client != null && node != null) {
       try {
         pool.returnObject(node, client);
@@ -70,7 +67,7 @@ public class ClientManager<E> implements IClientManager<E> {
   }
 
   @Override
-  public void clear(EndPoint node) {
+  public void clear(K node) {
     if (node != null) {
       try {
         pool.clear(node);

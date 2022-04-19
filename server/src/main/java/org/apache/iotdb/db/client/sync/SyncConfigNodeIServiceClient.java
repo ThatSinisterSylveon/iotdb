@@ -39,13 +39,13 @@ import java.net.SocketException;
 public class SyncConfigNodeIServiceClient extends ConfigIService.Client {
 
   private final EndPoint endpoint;
-  private final ClientManager<SyncConfigNodeIServiceClient> clientManager;
+  private final ClientManager<EndPoint, SyncConfigNodeIServiceClient> clientManager;
 
   public SyncConfigNodeIServiceClient(
       TProtocolFactory protocolFactory,
       int connectionTimeout,
       EndPoint endpoint,
-      ClientManager<SyncConfigNodeIServiceClient> clientManager)
+      ClientManager<EndPoint, SyncConfigNodeIServiceClient> clientManager)
       throws TTransportException {
     super(
         protocolFactory.getProtocol(
@@ -82,7 +82,7 @@ public class SyncConfigNodeIServiceClient extends ConfigIService.Client {
   public static class Factory extends BaseClientFactory<EndPoint, SyncConfigNodeIServiceClient> {
 
     public Factory(
-        ClientManager<SyncConfigNodeIServiceClient> clientManager,
+        ClientManager<EndPoint, SyncConfigNodeIServiceClient> clientManager,
         ClientManagerProperty<SyncConfigNodeIServiceClient> clientManagerProperty) {
       super(clientManager, clientManagerProperty);
     }

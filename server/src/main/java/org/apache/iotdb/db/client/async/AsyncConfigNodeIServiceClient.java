@@ -36,14 +36,14 @@ import java.io.IOException;
 public class AsyncConfigNodeIServiceClient extends ConfigIService.AsyncClient {
 
   private final EndPoint endpoint;
-  private final ClientManager<AsyncConfigNodeIServiceClient> clientManager;
+  private final ClientManager<EndPoint, AsyncConfigNodeIServiceClient> clientManager;
 
   public AsyncConfigNodeIServiceClient(
       TProtocolFactory protocolFactory,
       int connectionTimeout,
       EndPoint endpoint,
       TAsyncClientManager tClientManager,
-      ClientManager<AsyncConfigNodeIServiceClient> clientManager)
+      ClientManager<EndPoint, AsyncConfigNodeIServiceClient> clientManager)
       throws IOException {
     super(
         protocolFactory,
@@ -91,7 +91,7 @@ public class AsyncConfigNodeIServiceClient extends ConfigIService.AsyncClient {
       extends AsyncBaseClientFactory<EndPoint, AsyncConfigNodeIServiceClient> {
 
     public Factory(
-        ClientManager<AsyncConfigNodeIServiceClient> clientManager,
+        ClientManager<EndPoint, AsyncConfigNodeIServiceClient> clientManager,
         ClientManagerProperty<AsyncConfigNodeIServiceClient> clientManagerProperty) {
       super(clientManager, clientManagerProperty);
     }

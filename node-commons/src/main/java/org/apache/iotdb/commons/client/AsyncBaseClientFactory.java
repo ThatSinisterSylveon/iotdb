@@ -26,14 +26,14 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class AsyncBaseClientFactory<K, T> extends BaseClientFactory<K, T> {
+public abstract class AsyncBaseClientFactory<K, V> extends BaseClientFactory<K, V> {
 
   private static final Logger logger = LoggerFactory.getLogger(AsyncBaseClientFactory.class);
   protected TAsyncClientManager[] tManagers;
   protected AtomicInteger clientCnt = new AtomicInteger();
 
   protected AsyncBaseClientFactory(
-      ClientManager<T> clientManager, ClientManagerProperty<T> clientManagerProperty) {
+      ClientManager<K, V> clientManager, ClientManagerProperty<V> clientManagerProperty) {
     super(clientManager, clientManagerProperty);
     tManagers = new TAsyncClientManager[clientManagerProperty.getSelectorNumOfAsyncClientPool()];
     for (int i = 0; i < tManagers.length; i++) {

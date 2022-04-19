@@ -19,18 +19,15 @@
 
 package org.apache.iotdb.commons.client;
 
-import org.apache.iotdb.common.rpc.thrift.EndPoint;
-
 import java.io.IOException;
-import java.util.Optional;
 
-public interface IClientManager<E> {
+public interface IClientManager<K, V> {
 
-  Optional<E> borrowClient(EndPoint node) throws IOException;
+  V borrowClient(K node) throws IOException;
 
-  void returnClient(EndPoint node, E client);
+  void returnClient(K node, V client);
 
-  void clear(EndPoint node);
+  void clear(K node);
 
   void close();
 }

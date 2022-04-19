@@ -26,9 +26,9 @@ import org.apache.thrift.protocol.TProtocolFactory;
 
 import java.time.Duration;
 
-public class ClientManagerProperty<T> {
+public class ClientManagerProperty<V> {
 
-  private final GenericKeyedObjectPoolConfig<T> config;
+  private final GenericKeyedObjectPoolConfig<V> config;
 
   // thrift client config
   private final TProtocolFactory protocolFactory;
@@ -36,7 +36,7 @@ public class ClientManagerProperty<T> {
   private int selectorNumOfAsyncClientPool = 1;
 
   public ClientManagerProperty(
-      GenericKeyedObjectPoolConfig<T> config,
+      GenericKeyedObjectPoolConfig<V> config,
       TProtocolFactory protocolFactory,
       int connectionTimeoutMs,
       int selectorNumOfAsyncClientPool) {
@@ -46,7 +46,7 @@ public class ClientManagerProperty<T> {
     this.selectorNumOfAsyncClientPool = selectorNumOfAsyncClientPool;
   }
 
-  public GenericKeyedObjectPoolConfig<T> getConfig() {
+  public GenericKeyedObjectPoolConfig<V> getConfig() {
     return config;
   }
 
@@ -62,7 +62,7 @@ public class ClientManagerProperty<T> {
     return selectorNumOfAsyncClientPool;
   }
 
-  public static class Builder<T> {
+  public static class Builder<V> {
 
     // pool config
     private long waitClientTimeoutMS = 20_000;
@@ -74,38 +74,38 @@ public class ClientManagerProperty<T> {
     private int connectionTimeoutMs = 20_000;
     private int selectorNumOfAsyncClientPool = 1;
 
-    public Builder<T> setWaitClientTimeoutMS(long waitClientTimeoutMS) {
+    public Builder<V> setWaitClientTimeoutMS(long waitClientTimeoutMS) {
       this.waitClientTimeoutMS = waitClientTimeoutMS;
       return this;
     }
 
-    public Builder<T> setMaxConnectionForEachNode(int maxConnectionForEachNode) {
+    public Builder<V> setMaxConnectionForEachNode(int maxConnectionForEachNode) {
       this.maxConnectionForEachNode = maxConnectionForEachNode;
       return this;
     }
 
-    public Builder<T> setMaxIdleConnectionForEachNode(int maxIdleConnectionForEachNode) {
+    public Builder<V> setMaxIdleConnectionForEachNode(int maxIdleConnectionForEachNode) {
       this.maxIdleConnectionForEachNode = maxIdleConnectionForEachNode;
       return this;
     }
 
-    public Builder<T> setRpcThriftCompressionEnabled(boolean rpcThriftCompressionEnabled) {
+    public Builder<V> setRpcThriftCompressionEnabled(boolean rpcThriftCompressionEnabled) {
       this.rpcThriftCompressionEnabled = rpcThriftCompressionEnabled;
       return this;
     }
 
-    public Builder<T> setConnectionTimeoutMs(int connectionTimeoutMs) {
+    public Builder<V> setConnectionTimeoutMs(int connectionTimeoutMs) {
       this.connectionTimeoutMs = connectionTimeoutMs;
       return this;
     }
 
-    public Builder<T> setSelectorNumOfAsyncClientPool(int selectorNumOfAsyncClientPool) {
+    public Builder<V> setSelectorNumOfAsyncClientPool(int selectorNumOfAsyncClientPool) {
       this.selectorNumOfAsyncClientPool = selectorNumOfAsyncClientPool;
       return this;
     }
 
-    public ClientManagerProperty<T> build() {
-      GenericKeyedObjectPoolConfig<T> poolConfig = new GenericKeyedObjectPoolConfig<>();
+    public ClientManagerProperty<V> build() {
+      GenericKeyedObjectPoolConfig<V> poolConfig = new GenericKeyedObjectPoolConfig<>();
       poolConfig.setMaxTotalPerKey(maxConnectionForEachNode);
       poolConfig.setMaxIdlePerKey(maxIdleConnectionForEachNode);
       poolConfig.setMaxWait(Duration.ofMillis(waitClientTimeoutMS));

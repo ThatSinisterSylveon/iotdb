@@ -19,12 +19,9 @@
 
 package org.apache.iotdb.commons.client;
 
-import org.apache.iotdb.common.rpc.thrift.EndPoint;
-
 import org.apache.commons.pool2.KeyedObjectPool;
 
-public interface IClientPoolFactory<E> {
+public interface IClientPoolFactory<K, V> {
 
-  KeyedObjectPool<EndPoint, E> createClientPool(
-      ClientManager<E> manager);
+  KeyedObjectPool<K, V> createClientPool(ClientManager<K, V> manager);
 }

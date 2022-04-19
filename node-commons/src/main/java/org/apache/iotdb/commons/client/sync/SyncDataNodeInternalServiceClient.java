@@ -40,13 +40,13 @@ import java.net.SocketException;
 public class SyncDataNodeInternalServiceClient extends InternalService.Client {
 
   private final EndPoint endpoint;
-  private final ClientManager<SyncDataNodeInternalServiceClient> clientManager;
+  private final ClientManager<EndPoint, SyncDataNodeInternalServiceClient> clientManager;
 
   public SyncDataNodeInternalServiceClient(
       TProtocolFactory protocolFactory,
       int connectionTimeout,
       EndPoint endpoint,
-      ClientManager<SyncDataNodeInternalServiceClient> clientManager)
+      ClientManager<EndPoint, SyncDataNodeInternalServiceClient> clientManager)
       throws TTransportException {
     super(
         protocolFactory.getProtocol(
@@ -84,7 +84,7 @@ public class SyncDataNodeInternalServiceClient extends InternalService.Client {
       extends BaseClientFactory<EndPoint, SyncDataNodeInternalServiceClient> {
 
     public Factory(
-        ClientManager<SyncDataNodeInternalServiceClient> clientManager,
+        ClientManager<EndPoint, SyncDataNodeInternalServiceClient> clientManager,
         ClientManagerProperty<SyncDataNodeInternalServiceClient> clientManagerProperty) {
       super(clientManager, clientManagerProperty);
     }

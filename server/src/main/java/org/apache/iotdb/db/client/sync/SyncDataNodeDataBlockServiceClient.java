@@ -39,13 +39,13 @@ import java.net.SocketException;
 public class SyncDataNodeDataBlockServiceClient extends DataBlockService.Client {
 
   private final EndPoint endpoint;
-  private final ClientManager<SyncDataNodeDataBlockServiceClient> clientManager;
+  private final ClientManager<EndPoint, SyncDataNodeDataBlockServiceClient> clientManager;
 
   public SyncDataNodeDataBlockServiceClient(
       TProtocolFactory protocolFactory,
       int connectionTimeout,
       EndPoint endpoint,
-      ClientManager<SyncDataNodeDataBlockServiceClient> clientManager)
+      ClientManager<EndPoint, SyncDataNodeDataBlockServiceClient> clientManager)
       throws TTransportException {
     super(
         protocolFactory.getProtocol(
@@ -83,7 +83,7 @@ public class SyncDataNodeDataBlockServiceClient extends DataBlockService.Client 
       extends BaseClientFactory<EndPoint, SyncDataNodeDataBlockServiceClient> {
 
     public Factory(
-        ClientManager<SyncDataNodeDataBlockServiceClient> clientManager,
+        ClientManager<EndPoint, SyncDataNodeDataBlockServiceClient> clientManager,
         ClientManagerProperty<SyncDataNodeDataBlockServiceClient> clientManagerProperty) {
       super(clientManager, clientManagerProperty);
     }

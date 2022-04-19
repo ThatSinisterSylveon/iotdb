@@ -38,10 +38,10 @@ public class ClientPoolFactory {
   private static final IoTDBConfig conf = IoTDBDescriptor.getInstance().getConfig();
 
   public static class SyncConfigNodeIServiceClientPoolFactory
-      implements IClientPoolFactory<SyncConfigNodeIServiceClient> {
+      implements IClientPoolFactory<EndPoint, SyncConfigNodeIServiceClient> {
     @Override
     public KeyedObjectPool<EndPoint, SyncConfigNodeIServiceClient> createClientPool(
-        ClientManager<SyncConfigNodeIServiceClient> manager) {
+        ClientManager<EndPoint, SyncConfigNodeIServiceClient> manager) {
       ClientManagerProperty<SyncConfigNodeIServiceClient> property =
           new ClientManagerProperty.Builder<SyncConfigNodeIServiceClient>()
               .setConnectionTimeoutMs(conf.getConnectionTimeoutInMS())
@@ -53,10 +53,10 @@ public class ClientPoolFactory {
   }
 
   public static class AsyncConfigNodeIServiceClientPoolFactory
-      implements IClientPoolFactory<AsyncConfigNodeIServiceClient> {
+      implements IClientPoolFactory<EndPoint, AsyncConfigNodeIServiceClient> {
     @Override
     public KeyedObjectPool<EndPoint, AsyncConfigNodeIServiceClient> createClientPool(
-        ClientManager<AsyncConfigNodeIServiceClient> manager) {
+        ClientManager<EndPoint, AsyncConfigNodeIServiceClient> manager) {
       ClientManagerProperty<AsyncConfigNodeIServiceClient> property =
           new ClientManagerProperty.Builder<AsyncConfigNodeIServiceClient>()
               .setConnectionTimeoutMs(conf.getConnectionTimeoutInMS())
@@ -69,10 +69,10 @@ public class ClientPoolFactory {
   }
 
   public static class SyncDataNodeInternalServiceClientPoolFactory
-      implements IClientPoolFactory<SyncDataNodeInternalServiceClient> {
+      implements IClientPoolFactory<EndPoint, SyncDataNodeInternalServiceClient> {
     @Override
     public KeyedObjectPool<EndPoint, SyncDataNodeInternalServiceClient> createClientPool(
-        ClientManager<SyncDataNodeInternalServiceClient> manager) {
+        ClientManager<EndPoint, SyncDataNodeInternalServiceClient> manager) {
       ClientManagerProperty<SyncDataNodeInternalServiceClient> property =
           new ClientManagerProperty.Builder<SyncDataNodeInternalServiceClient>()
               .setConnectionTimeoutMs(conf.getConnectionTimeoutInMS())
@@ -84,10 +84,10 @@ public class ClientPoolFactory {
   }
 
   public static class AsyncDataNodeInternalServiceClientPoolFactory
-      implements IClientPoolFactory<AsyncDataNodeInternalServiceClient> {
+      implements IClientPoolFactory<EndPoint, AsyncDataNodeInternalServiceClient> {
     @Override
     public KeyedObjectPool<EndPoint, AsyncDataNodeInternalServiceClient> createClientPool(
-        ClientManager<AsyncDataNodeInternalServiceClient> manager) {
+        ClientManager<EndPoint, AsyncDataNodeInternalServiceClient> manager) {
       ClientManagerProperty<AsyncDataNodeInternalServiceClient> property =
           new ClientManagerProperty.Builder<AsyncDataNodeInternalServiceClient>()
               .setConnectionTimeoutMs(conf.getConnectionTimeoutInMS())

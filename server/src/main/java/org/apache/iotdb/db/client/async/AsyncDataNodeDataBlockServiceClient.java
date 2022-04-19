@@ -36,14 +36,14 @@ import java.io.IOException;
 public class AsyncDataNodeDataBlockServiceClient extends DataBlockService.AsyncClient {
 
   private final EndPoint endpoint;
-  private final ClientManager<AsyncDataNodeDataBlockServiceClient> clientManager;
+  private final ClientManager<EndPoint, AsyncDataNodeDataBlockServiceClient> clientManager;
 
   public AsyncDataNodeDataBlockServiceClient(
       TProtocolFactory protocolFactory,
       int connectionTimeout,
       EndPoint endpoint,
       TAsyncClientManager tClientManager,
-      ClientManager<AsyncDataNodeDataBlockServiceClient> clientManager)
+      ClientManager<EndPoint, AsyncDataNodeDataBlockServiceClient> clientManager)
       throws IOException {
     super(
         protocolFactory,
@@ -91,7 +91,7 @@ public class AsyncDataNodeDataBlockServiceClient extends DataBlockService.AsyncC
       extends AsyncBaseClientFactory<EndPoint, AsyncDataNodeDataBlockServiceClient> {
 
     public Factory(
-        ClientManager<AsyncDataNodeDataBlockServiceClient> clientManager,
+        ClientManager<EndPoint, AsyncDataNodeDataBlockServiceClient> clientManager,
         ClientManagerProperty<AsyncDataNodeDataBlockServiceClient> clientManagerProperty) {
       super(clientManager, clientManagerProperty);
     }

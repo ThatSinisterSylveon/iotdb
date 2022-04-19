@@ -22,20 +22,20 @@ package org.apache.iotdb.commons.client;
 import org.apache.commons.pool2.KeyedPooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 
-public abstract class BaseClientFactory<K, T> implements KeyedPooledObjectFactory<K, T> {
+public abstract class BaseClientFactory<K, V> implements KeyedPooledObjectFactory<K, V> {
 
-  protected ClientManager<T> clientManager;
-  protected ClientManagerProperty<T> clientManagerProperty;
+  protected ClientManager<K, V> clientManager;
+  protected ClientManagerProperty<V> clientManagerProperty;
 
   public BaseClientFactory(
-      ClientManager<T> clientManager, ClientManagerProperty<T> clientManagerProperty) {
+      ClientManager<K, V> clientManager, ClientManagerProperty<V> clientManagerProperty) {
     this.clientManager = clientManager;
     this.clientManagerProperty = clientManagerProperty;
   }
 
   @Override
-  public void activateObject(K node, PooledObject<T> pooledObject) {}
+  public void activateObject(K node, PooledObject<V> pooledObject) {}
 
   @Override
-  public void passivateObject(K node, PooledObject<T> pooledObject) {}
+  public void passivateObject(K node, PooledObject<V> pooledObject) {}
 }
