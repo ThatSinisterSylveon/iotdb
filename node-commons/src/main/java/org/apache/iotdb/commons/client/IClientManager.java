@@ -29,4 +29,8 @@ public interface IClientManager<E> {
   Optional<E> borrowClient(EndPoint node) throws IOException;
 
   void returnClient(EndPoint node, E client);
+
+  void clear(EndPoint node);
+
+  void close();
 }

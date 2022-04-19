@@ -68,4 +68,24 @@ public class ClientManager<E> implements IClientManager<E> {
       }
     }
   }
+
+  @Override
+  public void clear(EndPoint node) {
+    if (node != null) {
+      try {
+        pool.clear(node);
+      } catch (Exception e) {
+        logger.error(String.format("clear all client in pool for node %s failed.", node), e);
+      }
+    }
+  }
+
+  @Override
+  public void close() {
+    try {
+      pool.close();
+    } catch (Exception e) {
+      logger.error("close client pool failed", e);
+    }
+  }
 }
