@@ -1,0 +1,11 @@
+name: GitHub Actions Demo
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Running Test Without NonDex"
+      - run: mvn -pl tsfile test -Dtest=org.apache.iotdb.tsfile.write.schema.converter.SchemaBuilderTest#testJsonConverter3
+      - run: echo "Running Test With NonDex"
+      - run: mvn -pl tsfile edu.illinois:nondex-maven-plugin:1.1.2:nondex -Dtest=org.apache.iotdb.tsfile.write.schema.converter.SchemaBuilderTest#testJsonConverter3
+      - run: echo "Finished with Test!"
