@@ -14,4 +14,8 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots verify
+        run: mvn test-compile -pl tsfile -am
+      - name: Run without NonDex
+        run: mvn -pl tsfile test -Dtest=org.apache.iotdb.tsfile.write.schema.converter.SchemaBuilderTest#testJsonConverter3
+      - name: Run with NonDex
+        run: mvn -pl tsfile edu.illinois:nondex-maven-plugin:1.1.2:nondex -Dtest=org.apache.iotdb.tsfile.write.schema.converter.SchemaBuilderTest#testJsonConverter3
