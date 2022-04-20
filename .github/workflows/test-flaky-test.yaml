@@ -1,4 +1,4 @@
-name: Test Flakiness 
+name: Flaky Test
 
 on: [push]
 
@@ -14,4 +14,4 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Build with Maven
-        run: mvn test-compile -pl tsfile -am
+        run: mvn --batch-mode --update-snapshots verify
